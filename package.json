@@ -1,0 +1,16 @@
+{
+  "name": "vibe-coding-server-security-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Recreate two real bot incidents against vulnerable and hardened stacks without exposing unsafe services.",
+  "scripts": {
+    "start": "node app/server.js",
+    "simulate": "node scripts/simulate-attack.mjs",
+    "test": "node --test \"test/*.test.mjs\"",
+    "check": "npm test && npm run simulate"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,28 @@
+# INTENTIONALLY INSECURE — education only. Never deploy this stack.
+# This recreates the original setup: a "working" app where every
+# internal service is also published to the public internet.
+name: vibestack-vulnerable
+
+services:
+  web:
+    image: node:22-alpine          # stand-in for the Next.js app
+    command: ["node", "server.js"]
+    ports:
+      - "3000:3000"                # the app — legitimately public
+    # no mem_limit, no pids_limit, no cpus:
+    # one exploited container can eat the whole host's RAM (the OOM incident)
+
+  ollama:
+    image: ollama/ollama:0.6.8
+    ports:
+      - "11434:11434"              # BUG: no-auth AI service on the public IP
+
+  mongo:
+    image: mongo:8.0
+    ports:
+      - "27017:27017"              # BUG: database reachable by anyone
+
+  redis:
+    image: redis:7.4-alpine
+    ports:
+      - "6379:6379"                # BUG: no auth, no ACL — fully public

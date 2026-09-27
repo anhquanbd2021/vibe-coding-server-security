@@ -1,0 +1,27 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { startProduction } from '../app/server.js';
+
+test('production starts only hardened public edge', async () => {
+  const previous = process.env.GIT_COMMIT;
+  process.env.GIT_COMMIT = 'test-commit';
+  const deployment = await startProduction({ port: 0 });
+  const base = `http://127.0.0.1:${deployment.edge.address().port}`;
+  try {
+    assert.equal((await fetch(`${base}/health`)).status, 200);
+    assert.deepEqual(await (await fetch(`${base}/version`)).json(), {
+      service: 'vibe-coding-server-security',
+      commit: 'test-commit',
+    });
+    assert.equal((await fetch(`${base}/admin`, {
+      headers: { 'x-middleware-subrequest': 'middleware' },
+    })).status, 403);
+    assert.equal((await fetch(`${base}/.env`)).status, 404);
+    assert.equal((await fetch(`${base}/api/pull`, { method: 'POST' })).status, 404);
+    assert.equal((await fetch(base, { headers: { 'user-agent': 'sqlmap/1.7' } })).status, 403);
+  } finally {
+    await deployment.close();
+    if (previous === undefined) delete process.env.GIT_COMMIT;
+    else process.env.GIT_COMMIT = previous;
+  }
+});
