@@ -3,8 +3,10 @@ import assert from 'node:assert/strict';
 import { startProduction } from '../app/server.js';
 
 test('production starts only hardened public edge', async () => {
-  const previous = process.env.GIT_COMMIT;
+  const previousGit = process.env.GIT_COMMIT;
+  const previousRender = process.env.RENDER_GIT_COMMIT;
   process.env.GIT_COMMIT = 'test-commit';
+  process.env.RENDER_GIT_COMMIT = 'test-commit';
   const deployment = await startProduction({ port: 0 });
   const base = `http://127.0.0.1:${deployment.edge.address().port}`;
   try {
@@ -21,7 +23,9 @@ test('production starts only hardened public edge', async () => {
     assert.equal((await fetch(base, { headers: { 'user-agent': 'sqlmap/1.7' } })).status, 403);
   } finally {
     await deployment.close();
-    if (previous === undefined) delete process.env.GIT_COMMIT;
-    else process.env.GIT_COMMIT = previous;
+    if (previousGit === undefined) delete process.env.GIT_COMMIT;
+    else process.env.GIT_COMMIT = previousGit;
+    if (previousRender === undefined) delete process.env.RENDER_GIT_COMMIT;
+    else process.env.RENDER_GIT_COMMIT = previousRender;
   }
 });
