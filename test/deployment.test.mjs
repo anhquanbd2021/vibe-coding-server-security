@@ -15,6 +15,17 @@ test('production starts only hardened public edge', async () => {
       service: 'vibe-coding-server-security',
       commit: 'test-commit',
     });
+    const home = await fetch(`${base}/`);
+    assert.equal(home.status, 200);
+    assert.match(home.headers.get('content-type'), /^text\/html/);
+    assert.match(home.headers.get('content-security-policy'), /default-src 'self'/);
+    assert.match(await home.text(), /See what the edge stops/);
+    const guide = await fetch(`${base}/guide.html`);
+    assert.match(await guide.text(), /Server Security Guide/);
+    assert.match((await fetch(`${base}/styles.css`)).headers.get('content-type'), /^text\/css/);
+    assert.match((await fetch(`${base}/app.js`)).headers.get('content-type'), /^text\/javascript/);
+    assert.equal((await fetch(`${base}/missing.js`)).status, 404);
+
     assert.equal((await fetch(`${base}/admin`, {
       headers: { 'x-middleware-subrequest': 'middleware' },
     })).status, 403);

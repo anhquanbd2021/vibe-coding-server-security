@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Replay five server attacks and inspect how a hardened edge blocks them.">
+  <title>Vibe-coded Server Security Lab</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<main>
+  <nav aria-label="Primary"><a aria-current="page" href="/">Lab</a><a href="/guide.html">Guide</a><a href="https://github.com/anhquanbd2021/vibe-coding-server-security">Source</a></nav>
+  <header class="hero">
+    <div><p class="eyebrow">Hardened server lab · 5 attack cases</p><h1>See what the edge stops.</h1><p class="lede">Compare an intentionally vulnerable local stack with the hardened service deployed here. Follow each request across seven security boundaries.</p></div>
+    <p class="warning"><strong>Safe educational demo.</strong> Render runs only the hardened stack. Vulnerable outcomes and resource floods are deterministic replays; no secrets or destructive workloads are used.</p>
+  </header>
+
+  <section class="workspace" aria-label="Server security workspace">
+    <section class="panel controls" aria-labelledby="runner-title">
+      <div><p class="eyebrow">Case runner</p><h2 id="runner-title">Choose an attack</h2></div>
+      <label for="scenario">Scenario<select id="scenario"></select></label>
+      <dl class="case-meta"><div><dt>Mode</dt><dd><span id="mode" class="badge">Live</span></dd></div><div><dt>Expected</dt><dd id="expected">404</dd></div><div><dt>Method</dt><dd id="method">POST</dd></div><div><dt>Source</dt><dd id="source">Behavior test</dd></div></dl>
+      <button id="run" type="button">Run hardened check</button>
+      <p class="muted"><strong>Live</strong> sends one safe request to this hardened service. <strong>Replay</strong> visualizes deterministic results asserted by local tests.</p>
+    </section>
+
+    <section class="panel visualizer" aria-labelledby="flow-title">
+      <div class="section-heading"><div><p class="eyebrow">Request trace</p><h2 id="flow-title">Security pipeline</h2></div><span id="flow-state" class="badge" role="status" aria-live="polite">Ready</span></div>
+      <ol id="flow" class="flow" aria-label="Request security stages">
+        <li><span>01</span><strong>Client</strong><small>Build safe request</small></li>
+        <li><span>02</span><strong>Headers</strong><small>Reject hostile metadata</small></li>
+        <li><span>03</span><strong>Authentication</strong><small>Keep protected routes closed</small></li>
+        <li><span>04</span><strong>Rate limit</strong><small>Cap request bursts</small></li>
+        <li><span>05</span><strong>Route policy</strong><small>Expose intended paths only</small></li>
+        <li><span>06</span><strong>Service boundary</strong><small>Keep internal ports private</small></li>
+        <li><span>07</span><strong>Safe response</strong><small>Return no sensitive detail</small></li>
+      </ol>
+      <div class="request-line"><code id="request">Select a case</code><strong id="status">Awaiting run</strong></div>
+      <div class="comparison">
+        <article><p class="eyebrow danger-text">Vulnerable replay</p><h3>Door left open</h3><p id="vulnerable"></p></article>
+        <article><p class="eyebrow success-text">Hardened result</p><h3>Boundary enforced</h3><p id="hardened"></p></article>
+      </div>
+      <section class="response" aria-labelledby="response-title"><h3 id="response-title">Evidence</h3><pre id="output" aria-live="polite">Choose a scenario, then run it.</pre></section>
+      <p><strong>Control:</strong> <span id="control"></span></p>
+    </section>
+  </section>
+  <p><a href="/guide.html">Read implementation guide</a> · <a href="https://github.com/anhquanbd2021/vibe-coding-server-security">Inspect source and tests</a></p>
+</main>
+<script type="module" src="/app.js"></script>
+</body>
+</html>

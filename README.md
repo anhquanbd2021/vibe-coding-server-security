@@ -60,4 +60,17 @@ source/test fixtures and are never started in production.
 - Version: `/version`
 - Blueprint: `render.yaml`
 
+
+## Interactive web lab
+
+The root page now presents all five attack cases as an accessible request-flow
+visualization. Safe checks run against the hardened deployment; flood and
+browser-restricted user-agent cases are clearly labeled deterministic replays.
+
+- Lab: `/`
+- Detailed guide: `/guide.html`
+- Scenario presets: `/?scenario=internal-service`, `middleware-bypass`,
+  `dotfile-probe`, `request-flood`, or `scanner`
+
+
 - This is an educational demo, not production infrastructure.

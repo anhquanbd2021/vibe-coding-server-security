@@ -64,3 +64,15 @@ test('nginx proxies only the web app — no internal service upstreams', () => {
   assert.match(nginx, /proxy_pass http:\/\/web_app/);
   assert.doesNotMatch(nginx, /proxy_pass.*(ollama|mongo|redis)/i);
 });
+
+
+test('public lab catalogs every safe attack case', () => {
+  const catalog = read('public/test-cases.js');
+  for (const id of ['internal-service', 'middleware-bypass', 'dotfile-probe', 'request-flood', 'scanner']) {
+    assert.match(catalog, new RegExp(`id: '${id}'`));
+  }
+  assert.match(read('public/index.html'), /prefers-reduced-motion|Security pipeline/);
+  assert.match(read('public/styles.css'), /prefers-reduced-motion/);
+  assert.match(read('public/guide.html'), /Vulnerable outcomes are local fixtures/);
+});
+
