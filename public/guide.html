@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Guide to the hardened server security demo."><title>Server Security Guide</title><link rel="stylesheet" href="/styles.css"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Guide to the hardened server security demo."><title>Server Security Guide</title><link rel="stylesheet" href="/styles.css"><!-- pb-shell --><link rel="stylesheet" href="./pb-shell.css"><!-- pb-shell --></head>
 <body><main>
 <nav aria-label="Primary"><a href="/">Lab</a><a aria-current="page" href="/guide.html">Guide</a><a href="https://github.com/anhquanbd2021/vibe-coding-server-security">Source</a></nav>
 <header><p class="eyebrow">Defense in depth</p><h1>Server Security Guide</h1><p class="lede">A working app is not automatically safe to expose. This guide maps five common internet-facing failures to the controls used by the hardened demo.</p><p class="warning"><strong>Educational simulator.</strong> Vulnerable outcomes are local fixtures and deterministic replays. Render runs only the hardened edge and backend.</p></header>
@@ -20,4 +20,4 @@ npm run check
 # Optional hardened containers
 docker compose -f compose/compose.hardened.yaml up</pre><p>Local tests start vulnerable fixtures only to demonstrate the failure. Production starts <code>app/server.js</code>, which creates hardened backend and edge servers only.</p></section>
 <section class="guide-section panel"><p class="eyebrow">Limits</p><h2>What this demo does not claim</h2><ul><li>Local counters do not replace a distributed rate limiter.</li><li>User-agent filtering does not replace authentication, authorization, or a full WAF.</li><li>Fake fixtures contain no credentials and no real model pull.</li><li>Render free instances can sleep; cold starts can delay first request.</li></ul><p><a class="try" href="/">Return to Lab</a></p></section>
-</main></body></html>
+</main><!-- pb-shell --><a class="pb-shell" href="https://github.com/anhquanbd2021/vibe-coding-server-security" title="vibe-coding-server-security — an Article Playbook demo (view source)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="2" width="9" height="9" rx="2" fill="#2dd4bf"/><rect x="13" y="2" width="9" height="9" rx="2" fill="#2dd4bf" opacity=".45"/><rect x="2" y="13" width="9" height="9" rx="2" fill="#2dd4bf" opacity=".45"/><rect x="13" y="13" width="9" height="9" rx="4.5" fill="#2dd4bf"/></svg><b>vibe-coding-server-security</b><i>DEMO</i></a><!-- pb-shell --></body></html>
