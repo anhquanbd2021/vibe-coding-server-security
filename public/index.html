@@ -5,14 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Replay five server attacks and inspect how a hardened edge blocks them.">
   <title>Vibe-coded Server Security Lab</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&amp;family=Inter:wght@400;600;700&amp;family=Space+Grotesk:wght@500;700&amp;display=swap">
   <link rel="stylesheet" href="/styles.css">
 <!-- pb-shell --><link rel="stylesheet" href="./pb-shell.css"><!-- pb-shell --></head>
 <body>
-<main>
+<a class="skip-link" href="#main">Skip to content</a>
+<main id="main">
   <nav aria-label="Primary"><a aria-current="page" href="/">Lab</a><a href="/guide.html">Guide</a><a href="https://github.com/anhquanbd2021/vibe-coding-server-security">Source</a></nav>
   <header class="hero">
     <div><p class="eyebrow">Hardened server lab · 5 attack cases</p><h1>See what the edge stops.</h1><p class="lede">Compare an intentionally vulnerable local stack with the hardened service deployed here. Follow each request across seven security boundaries.</p></div>
-    <p class="warning"><strong>Safe educational demo.</strong> Render runs only the hardened stack. Vulnerable outcomes and resource floods are deterministic replays; no secrets or destructive workloads are used.</p>
+    <p class="warning"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9 2.6 17a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><strong>Safe educational demo.</strong> Render runs only the hardened stack. Vulnerable outcomes and resource floods are deterministic replays; no secrets or destructive workloads are used.</p>
   </header>
 
   <section class="workspace" aria-label="Server security workspace">
