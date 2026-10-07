@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Replay five server attacks and inspect how a hardened edge blocks them.">
+  <title>Vibe-coded Server Security Lab</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&amp;family=Inter:wght@400;600;700&amp;family=Space+Grotesk:wght@500;700&amp;display=swap">
+  <link rel="stylesheet" href="/styles.css">
+<!-- pb-shell --><link rel="stylesheet" href="./pb-shell.css"><!-- pb-shell --><!-- pb-back --><link rel="stylesheet" href="./pb-back.css"><!-- pb-back --></head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<main id="main">
+  <nav aria-label="Primary"><a aria-current="page" href="/">Lab</a><a href="/guide.html">Guide</a><a href="https://github.com/anhquanbd2021/vibe-coding-server-security">Source</a></nav>
+  <header class="hero">
+    <div><p class="eyebrow">Hardened server lab · 5 attack cases</p><h1>See what the edge stops.</h1><p class="lede">Compare an intentionally vulnerable local stack with the hardened service deployed here. Follow each request across seven security boundaries.</p></div>
+    <p class="warning"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9 2.6 17a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><strong>Safe educational demo.</strong> Render runs only the hardened stack. Vulnerable outcomes and resource floods are deterministic replays; no secrets or destructive workloads are used.</p>
+  </header>
+
+  <section class="workspace" aria-label="Server security workspace">
+    <section class="panel controls" aria-labelledby="runner-title">
+      <div><p class="eyebrow">Case runner</p><h2 id="runner-title">Choose an attack</h2></div>
+      <label for="scenario">Scenario<select id="scenario"></select></label>
+      <dl class="case-meta"><div><dt>Mode</dt><dd><span id="mode" class="badge">Live</span></dd></div><div><dt>Expected</dt><dd id="expected">404</dd></div><div><dt>Method</dt><dd id="method">POST</dd></div><div><dt>Source</dt><dd id="source">Behavior test</dd></div></dl>
+      <button id="run" type="button">Run hardened check</button>
+      <p class="muted"><strong>Live</strong> sends one safe request to this hardened service. <strong>Replay</strong> visualizes deterministic results asserted by local tests.</p>
+    </section>
+
+    <section class="panel visualizer" aria-labelledby="flow-title">
+      <div class="section-heading"><div><p class="eyebrow">Request trace</p><h2 id="flow-title">Security pipeline</h2></div><span id="flow-state" class="badge" role="status" aria-live="polite">Ready</span></div>
+      <ol id="flow" class="flow" aria-label="Request security stages">
+        <li><span>01</span><strong>Client</strong><small>Build safe request</small></li>
+        <li><span>02</span><strong>Headers</strong><small>Reject hostile metadata</small></li>
+        <li><span>03</span><strong>Authentication</strong><small>Keep protected routes closed</small></li>
+        <li><span>04</span><strong>Rate limit</strong><small>Cap request bursts</small></li>
+        <li><span>05</span><strong>Route policy</strong><small>Expose intended paths only</small></li>
+        <li><span>06</span><strong>Service boundary</strong><small>Keep internal ports private</small></li>
+        <li><span>07</span><strong>Safe response</strong><small>Return no sensitive detail</small></li>
+      </ol>
+      <div class="request-line"><code id="request">Select a case</code><strong id="status">Awaiting run</strong></div>
+      <div class="comparison">
+        <article><p class="eyebrow danger-text">Vulnerable replay</p><h3>Door left open</h3><p id="vulnerable"></p></article>
+        <article><p class="eyebrow success-text">Hardened result</p><h3>Boundary enforced</h3><p id="hardened"></p></article>
+      </div>
+      <section class="response" aria-labelledby="response-title"><h3 id="response-title">Evidence</h3><pre id="output" aria-live="polite">Choose a scenario, then run it.</pre></section>
+      <p><strong>Control:</strong> <span id="control"></span></p>
+    </section>
+  </section>
+  <p><a href="/guide.html">Read implementation guide</a> · <a href="https://github.com/anhquanbd2021/vibe-coding-server-security">Inspect source and tests</a></p>
+</main>
+<script type="module" src="/app.js"></script>
+<!-- pb-shell --><a class="pb-shell" href="https://github.com/anhquanbd2021/vibe-coding-server-security" title="vibe-coding-server-security — an Article Playbook demo (view source)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="2" width="9" height="9" rx="2" fill="#2dd4bf"/><rect x="13" y="2" width="9" height="9" rx="2" fill="#2dd4bf" opacity=".45"/><rect x="2" y="13" width="9" height="9" rx="2" fill="#2dd4bf" opacity=".45"/><rect x="13" y="13" width="9" height="9" rx="4.5" fill="#2dd4bf"/></svg><b>vibe-coding-server-security</b><i>DEMO</i></a><!-- pb-shell --><!-- pb-back --><a class="pb-back" id="pb-back" href="https://github.com/anhquanbd2021/vibe-coding-server-security" title="Back to the article — vibe-coding-server-security">← Article <i>PLAYBOOK</i></a><script>(function(){var a=document.getElementById('pb-back');if(!a)return;var h=location.hostname;if(/^(localhost|127\.0\.0\.1|192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[01])\.)/.test(h)){a.href='//'+h+':'+(/^(localhost|127\.0\.0\.1)$/.test(h)?'1234':'30082')+'/microsites/article.html?slug=vibe-coding-server-security';}})();</script><!-- pb-back --></body>
+</html>
